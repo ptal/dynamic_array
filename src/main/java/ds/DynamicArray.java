@@ -26,13 +26,6 @@ public class DynamicArray {
    * 3. Assign `data2` to `data`
    */
   private void realloc() {
-    if (size == data.length) {
-      int[] data2 = new int[size * 2];
-      for (int i = 0; i < size; i++) {
-        data2[i] = data[i];
-      }
-      data = data2;
-    }
   }
 
   /**
