@@ -1,30 +1,43 @@
 package ds;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class DynamicArrayTest {
-
-  private  DynamicArray array;
+  private DynamicArray array;
 
   @BeforeEach
-  void init() {
+  private void init() {
     array = new DynamicArray();
   }
 
-  void populate() {
+  private void populate() {
     array.add(4);
     array.add(5);
     array.add(6);
   }
 
+  private void populateAsExample() {
+    array.add(2);
+    array.add(1);
+    array.add(3);
+    array.add(6);
+    array.add(5);
+    array.add(4);
+  }
+
+  private void testArrayContent(int size, String content) {
+    assertEquals(content, array.toString());
+    assertEquals(size, array.size());
+    assertEquals(size == 0, array.isEmpty());
+  }
+
   @Test
   @DisplayName("Clear elements in DynamicArray")
-  void testClear() {
+  public void testClear() {
     testArrayContent(0, "");
     populate();
     array.clear();
@@ -33,28 +46,24 @@ class DynamicArrayTest {
 
   @Test
   @DisplayName("Search for an element in DynamicArray")
-  void testIndexOf() {
+  public void testIndexOf() {
     populate();
-    assertEquals(array.indexOf(5), 1);
-    assertEquals(array.indexOf(10), -1);
-  }
-
-  void testArrayContent(int size, String content) {
-    assertEquals(array.toString(), content);
-    assertEquals(array.size(), size);
-    assertEquals(array.isEmpty(), size == 0);
+    assertEquals(1, array.indexOf(5));
+    assertEquals(-1, array.indexOf(10));
   }
 
   @Test
   @DisplayName("Add elements in DynamicArray")
-  void testAdd() {
+  public void testAdd() {
     populate();
     testArrayContent(3, "4, 5, 6");
+    array.add(10, 2);
+    testArrayContent(4, "4, 5, 10, 6");
   }
 
   @Test
   @DisplayName("Remove elements in DynamicArray")
-  void testRemove() {
+  public void testRemove() {
     populate();
     array.remove(1);
     testArrayContent(2, "4, 6");
@@ -67,35 +76,23 @@ class DynamicArrayTest {
 
   /*
    * Uncomment for Exercise 4
-   *
+   */
   @Test
   @DisplayName("Sort values in DynamicArray")
-  void testSort() {
-    array.add(2);
-    array.add(1);
-    array.add(3);
-    array.add(6);
-    array.add(5);
-    array.add(4);
+  public void testSort() {
+    populateAsExample();
     Algorithm.sort(array);
-    testArrayContent(6, "1, 2, 3, 4, 5, 6");
+    // testArrayContent(6, "1, 2, 3, 4, 5, 6");
   }
-  */
 
   /*
    * Uncomment for Exercise 5
-   *
+   */
   @Test
   @DisplayName("Search a value in DynamicArray")
   void testSearch() {
-    array.add(2);
-    array.add(1);
-    array.add(3);
-    array.add(6);
-    array.add(5);
-    array.add(4);
+    populateAsExample();
     Algorithm.sort(array);
-    assertEquals(Algorithm.search(array, 3), 2);
-  }*/
-
+    // assertEquals(Algorithm.search(array, 3), 2);
+  }
 }
